@@ -885,7 +885,7 @@ void draw_game_map (int map, int mouse_mini)
 		}
 
 		// draw a temporary mark until the text is entered
-		if (adding_mark)
+		if (adding_mark && inspect_map_text == 0)
 		{
 			int x = mark_x;
 			int y = mark_y;
