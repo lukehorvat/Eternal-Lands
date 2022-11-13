@@ -258,6 +258,14 @@ int switch_to_game_map(void);
 void draw_game_map (int map, int mouse_mini);
 
 /*!
+ * \ingroup interface_map
+ * \brief   Checks if the currently selected tab map is the same as the map the player is on.
+ * \retval  int 1 if true, else 0
+ * \callgraph
+*/
+int is_tab_map_the_cur_map(void);
+
+/*!
  * \ingroup interfaces
  * \brief   Deletes the mark at the current mouse position and saves the changes.
  *

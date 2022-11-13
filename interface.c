@@ -413,9 +413,13 @@ void draw_2d_thing_r(float u_start,float v_start,float u_end,float v_end,int x_s
 }
 
 GLuint map_text;
-static int cont_text = -1; // index in texture cache for continent map
-
 GLuint inspect_map_text = 0;
+int is_tab_map_the_cur_map(void)
+{
+	return inspect_map_text == 0;
+}
+
+static int cont_text = -1; // index in texture cache for continent map
 int show_continent_map_boundaries = 1;
 GLuint legend_text=0;
 int cur_map;  //Is there a better way to do this?
@@ -786,7 +790,7 @@ void draw_game_map (int map, int mouse_mini)
 
 	if(map){
 		map_small = cont_text;
-		if(inspect_map_text == 0) {
+		if(is_tab_map_the_cur_map()) {
 			map_large=map_text;
 		} else {
 			map_large = inspect_map_text;
@@ -885,7 +889,7 @@ void draw_game_map (int map, int mouse_mini)
 		}
 
 		// draw a temporary mark until the text is entered
-		if (adding_mark && inspect_map_text == 0)
+		if (adding_mark && is_tab_map_the_cur_map())
 		{
 			int x = mark_x;
 			int y = mark_y;
@@ -909,7 +913,7 @@ void draw_game_map (int map, int mouse_mini)
 		}
 
 		draw_mark_filter();
-		if(inspect_map_text == 0) {
+		if(is_tab_map_the_cur_map()) {
 			draw_marks(marks, max_mark, tile_map_size_x, tile_map_size_y);
 			draw_coordinates(tile_map_size_x, tile_map_size_y);
 		}
@@ -920,7 +924,7 @@ void draw_game_map (int map, int mouse_mini)
 	}
 
 	//if we're following a path, draw the destination on the map
-	if (pf_follow_path && inspect_map_text == 0)
+	if (pf_follow_path && is_tab_map_the_cur_map())
 	{
 		int px = pf_dst_tile->x;
 		int py = pf_dst_tile->y;
@@ -958,7 +962,7 @@ void draw_game_map (int map, int mouse_mini)
 	}
 
 	//ok, now let's draw our position...
-	if ( (me = get_our_actor ()) != NULL && inspect_map_text == 0)
+	if ( (me = get_our_actor ()) != NULL && is_tab_map_the_cur_map())
 	{
 		x = me->x_tile_pos;
 		y = me->y_tile_pos;

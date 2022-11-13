@@ -68,7 +68,7 @@ static int click_map_handler (window_info *win, int mx, int my, Uint32 flags)
 		// Cancel any mark that was being added for the current map.
 		adding_mark = 0;
 	}
-	else if (!showing_continent && inspect_map_text == 0)
+	else if (!showing_continent && is_tab_map_the_cur_map())
 	{
 		if (left_click)
 		{
