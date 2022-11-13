@@ -113,6 +113,8 @@ void destroy_map(void)
 	destroy_clusters_array ();
 #endif
 
+	inspect_map_text = 0;
+
 	// Cancel any mark that was being added for the current map.
 	// This prevents the mark being drawn on the next map that is loaded.
 	adding_mark = 0;
