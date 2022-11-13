@@ -112,6 +112,9 @@ void destroy_map(void)
 #ifdef CLUSTER_INSIDES
 	destroy_clusters_array ();
 #endif
+
+	// Cancel any mark that was in the process of being added.
+	adding_mark = 0;
 }
 
 #ifndef MAP_EDITOR2
