@@ -12,6 +12,7 @@
 #include <map>
 #include <cassert>
 #include "exceptions/extendedexception.hpp"
+#include "asc.h"
 
 #include "2d_objects.h"
 #include "3d_objects.h"
@@ -377,6 +378,10 @@ extern "C" void reset_under_the_mouse()
 			}
 			x = mouse_x - select_offset;
 			y = window_height - mouse_y - select_offset;
+
+			// char str[256];
+			// safe_snprintf(str, sizeof(str), "x=%d y=%d", x, y);
+			// LOG_TO_CONSOLE(c_orange2, str);
 
 			glReadPixels(x, y, select_size, select_size, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 			update_selection(buffer);

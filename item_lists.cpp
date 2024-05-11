@@ -1308,7 +1308,7 @@ CHECK_GL_ERRORS();
 					Vars::lists()->active_previous_list();
 				else if (flags & ELW_WHEEL_DOWN)
 					Vars::lists()->active_next_list();
-				make_active_visable();
+				make_active_visable(); // consider calling this?
 			}
 			// scroll the names
 			else
@@ -1343,7 +1343,12 @@ CHECK_GL_ERRORS();
 					Uint16 item_id = Vars::lists()->get_list().get_item_id(selected_item_number);
 					int cat_id = Vars::cat_maps()->get_cat(image_id, item_id);
 					if (cat_id != -1)
+					{
+						char str[256];
+						safe_snprintf(str, sizeof(str), "num=%d id=%d image_id=%d", (int)selected_item_number, item_id,  image_id);
+						LOG_TO_CONSOLE(c_orange2, str);
 						pickup_storage_item(image_id, item_id, cat_id);
+					}
 					else
 					{
 						do_alert1_sound();
@@ -1660,6 +1665,7 @@ CHECK_GL_ERRORS();
 extern "C"
 {
 	int items_list_disable_find_list = 0;
+	int get_all_from_item_list_index = -1;
 
 	void toggle_items_list_window(window_info *win)
 		{ ItemLists::Vars::win()->show(win); }
@@ -1688,4 +1694,39 @@ extern "C"
 		ItemLists::Vars::win()->reset_pickup_fail_time();
 	}
 
+	void start_thingy(void)
+	{
+		get_all_from_item_list_index = 0;
+		get_all_from_active_item_list();
+	}
+
+	void get_all_from_active_item_list(void)
+	{
+		if (!ItemLists::Vars::lists()->valid_active_list())
+			return;
+
+		char str[256];
+		safe_snprintf(str, sizeof(str), "get_all_from_active_item_list() index=%d", get_all_from_item_list_index);
+		LOG_TO_CONSOLE(c_orange2, str);
+
+		int image_id = ItemLists::Vars::lists()->get_list().get_image_id(get_all_from_item_list_index);
+		Uint16 item_id = ItemLists::Vars::lists()->get_list().get_item_id(get_all_from_item_list_index);
+		int cat_id = ItemLists::Vars::cat_maps()->get_cat(image_id, item_id);
+
+		if (cat_id != -1)
+			pickup_storage_item(image_id, item_id, cat_id);
+	}
+
+	void move_to_next_in_item_list(void)
+	{
+		char str[256];
+		safe_snprintf(str, sizeof(str), "move_to_next_in_item_list: index=%d items=%d", get_all_from_item_list_index, (int)ItemLists::Vars::lists()->get_list().get_num_items());
+		LOG_TO_CONSOLE(c_red2, str);
+
+		if (get_all_from_item_list_index < ItemLists::Vars::lists()->get_list().get_num_items() - 1)
+		{
+			get_all_from_item_list_index++;
+			get_all_from_active_item_list();
+		}
+	}
 }

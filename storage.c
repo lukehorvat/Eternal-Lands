@@ -121,6 +121,11 @@ static void select_item(int image_id, Uint16 item_id)
 			}
 #endif
 			do_drag_item_sound();
+
+			// here we need to send the WITHDRAW_ITEM packet for this item.
+			// then need to signal that we can move to next item in item_list. a global var?
+			LOG_TO_CONSOLE(c_red3, "select_item()");
+			move_to_next_in_item_list();
 		}
 		else
 		{

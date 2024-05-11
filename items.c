@@ -1460,7 +1460,11 @@ static int click_items_handler(window_info *win, int mx, int my, Uint32 flags)
 		int x, y;
 		if (!self_tile_position(&x, &y))
 			return 1;
-		items_get_bag(x, y);
+		// items_get_bag(x, y);
+
+		// THIS IS THE GET ALL BUTTON CLICK
+		LOG_TO_CONSOLE(c_green2, "GET ALL!");
+		start_thingy();
 	}
 
 	// Sto All button

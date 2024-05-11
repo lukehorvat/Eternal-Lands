@@ -76,7 +76,7 @@ size_t get_def_server_index(void)
 {
 	if (default_server_index < 0)
 	{
-		int main_index = find_server_from_id("main");
+		int main_index = find_server_from_id("test");
 		return (main_index < 0) ?0 :(size_t)main_index;
 	}
 	return (size_t)default_server_index;
@@ -134,7 +134,7 @@ void set_server_details(void)
 		// if no default or default value not valid, try main
 		if (num == -1)
 		{
-			num = find_server_from_id("main");
+			num = find_server_from_id("test");
 			// cannot find even main, this is a fatal error
 			if (num == -1)
 			{

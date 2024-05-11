@@ -469,6 +469,7 @@ void items_get_bag(int x, int y)
 	int pos;
 	for(pos=0;pos<NUM_BAGS;pos++)
 	{
+		// TODO: might need this later to check if standing on bag
 		if(bag_list[pos].x != 0 && bag_list[pos].y != 0 &&
 			bag_list[pos].x == x && bag_list[pos].y == y)
 		{

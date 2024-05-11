@@ -14,6 +14,9 @@ void save_item_lists(void);
 unsigned int item_lists_get_active(void);
 void item_lists_set_active(unsigned int active_list);
 void item_lists_reset_pickup_fail_time(void);
+void start_thingy(void);
+void get_all_from_active_item_list(void);
+void move_to_next_in_item_list(void);
 
 extern int items_list_disable_find_list;
 
