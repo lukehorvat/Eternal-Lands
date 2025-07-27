@@ -1836,10 +1836,11 @@ static void next_actor_command(actor* act, actor *attached, void* UNUSED(data),
 
 					/* we change the speed of the walking animation according to the walking speed and to the size of the actor
 						* we suppose here that the normal speed of the walking animation is 2 meters per second (1 tile in 250ms) */
+					float scale = get_actor_scale(act);
 					act->cur_anim.duration_scale = walk_anim->duration_scale;
-					act->cur_anim.duration_scale *= (float)DEFAULT_STEP_DURATION/(act->movement_time_left*act->scale);
-					if (actors_defs[actor_type].actor_scale != 1.0)
-						act->cur_anim.duration_scale /= actors_defs[actor_type].actor_scale;
+					act->cur_anim.duration_scale *= (float)DEFAULT_STEP_DURATION / (act->movement_time_left * scale);
+					if (scale != 1.0)
+						act->cur_anim.duration_scale /= scale;
 					else
 						act->cur_anim.duration_scale /= actors_defs[actor_type].scale;
 					if (dx != 0 && dy != 0)

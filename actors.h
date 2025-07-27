@@ -733,11 +733,10 @@ static __inline__ float get_actor_z(const actor *a)
  * \param a the actor
  * \return the scale factor of the actor
  */
-static __inline__ float get_actor_scale(const actor *a)
+static __inline__ float get_actor_scale(const actor *act)
 {
-	float scale = a->scale;
-	scale *= actors_defs[a->actor_type].actor_scale;
-	return scale;
+	// Actor's dynamic scale received from server * static scale read from actor def xml.
+	return act->scale * actors_defs[act->actor_type].actor_scale;
 }
 
 /*!

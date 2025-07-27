@@ -619,13 +619,10 @@ void cal_render_actor(actor *act, Uint32 use_lightning, Uint32 use_textures, Uin
 	skel=CalModel_GetSkeleton(act->calmodel);
 
 	glPushMatrix();
-	// actor model rescaling
-	if(actors_defs[act->actor_type].actor_scale != 1.0){
-		glScalef(actors_defs[act->actor_type].actor_scale, actors_defs[act->actor_type].actor_scale, actors_defs[act->actor_type].actor_scale);
-	}
-	// the dynamic scaling
-	if(act->scale != 1.0f){
-		glScalef(act->scale,act->scale,act->scale);
+
+	float scale = get_actor_scale(act);
+	if(scale != 1.0){
+		glScalef(scale, scale, scale);
 	}
 
 #ifdef	DYNAMIC_ANIMATIONS
