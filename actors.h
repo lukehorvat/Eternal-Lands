@@ -309,7 +309,6 @@ typedef struct
 	/*! \} */
 
 	float actor_scale;
-	float scale;
 	float mesh_scale;
 	float skel_scale;
 
@@ -735,9 +734,8 @@ static __inline__ float get_actor_z(const actor *a)
  */
 static __inline__ float get_actor_scale(const actor *a)
 {
-	float scale = a->scale;
-	scale *= actors_defs[a->actor_type].actor_scale;
-	return scale;
+	// Actor's dynamic scale received from server * static scale read from actor def xml.
+	return a->scale * actors_defs[a->actor_type].actor_scale;
 }
 
 /*!

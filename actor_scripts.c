@@ -1837,11 +1837,10 @@ static void next_actor_command(actor* act, actor *attached, void* UNUSED(data),
 					/* we change the speed of the walking animation according to the walking speed and to the size of the actor
 						* we suppose here that the normal speed of the walking animation is 2 meters per second (1 tile in 250ms) */
 					act->cur_anim.duration_scale = walk_anim->duration_scale;
-					act->cur_anim.duration_scale *= (float)DEFAULT_STEP_DURATION/(act->movement_time_left*act->scale);
-					if (actors_defs[actor_type].actor_scale != 1.0)
-						act->cur_anim.duration_scale /= actors_defs[actor_type].actor_scale;
-					else
-						act->cur_anim.duration_scale /= actors_defs[actor_type].scale;
+					act->cur_anim.duration_scale *= (float)DEFAULT_STEP_DURATION / (act->movement_time_left * get_actor_scale(act));
+					float scale = get_actor_scale(act);
+					if (scale != 1.0)
+						act->cur_anim.duration_scale /= scale;
 					if (dx != 0 && dy != 0)
 						act->cur_anim.duration_scale *= 1.4142315;
 				}
@@ -4494,8 +4493,6 @@ int parse_actor_nodes(actor_types *act, const xmlNode *cfg, const xmlNode *defau
 				get_string_value(act->file_name, sizeof (act->file_name), item);
 			} else if (!strcmp(name, "actor_scale")) {
 				act->actor_scale= get_float_value(item);
-			} else if (!strcmp(name, "scale")) {
-				act->scale= get_float_value(item);
 			} else if (!strcmp(name, "mesh_scale")) {
 				act->mesh_scale= get_float_value(item);
 			} else if (!strcmp(name, "bone_scale")) {
@@ -4601,7 +4598,6 @@ int parse_actor_script(const xmlNode *cfg)
 	//Initialize Cal3D settings
 	act->coremodel= NULL;
 	act->actor_scale= 1.0;
-	act->scale= 1.0;
 	act->mesh_scale= 1.0;
 	act->skel_scale= 1.0;
 	act->group_count= 0;
