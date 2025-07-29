@@ -394,7 +394,7 @@ struct cal_anim cal_load_anim(actor_types *act, const char *str, int duration)
 		res.sound_scale = 1.0f;
 #endif	//NEW_SOUND
 
-	res.anim_index=CalCoreModel_ELLoadCoreAnimation(act->coremodel,fname,act->scale);
+	res.anim_index=CalCoreModel_ELLoadCoreAnimation(act->coremodel,fname,act->skel_scale);
 	if(res.anim_index == -1) {
 		LOG_ERROR("Cal3d error: %s: %s\n", fname, CalError_GetLastErrorDescription());
 		return res;
